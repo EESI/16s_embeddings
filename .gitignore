@@ -1,2 +1,18 @@
+#files
+*.ipynb
+*.pyc
+
+#folders
+__pycache__
+*/__pycache__/*
+code/__pycache__/
 models/
 data/testing/
+
+#large files
+*.pkl
+*.pkl*
+*.fasta
+*.fasta*
+*.csv
+*.csv*
