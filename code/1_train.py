@@ -73,6 +73,9 @@ if k == 0:
     print('k not specified in kmer file filename via -i or via -k')
     sys.exit()
 
+if not os.path.exists(work_dir):
+    os.makedirs(work_dir)
+
 model_fn = prefix + '_' + str(k) + '_' + str(d) + \
         '_' + str(epochs) + '_' + str(w) + '_' + \
         str(neg_samps).replace('0.','') + '_' + \

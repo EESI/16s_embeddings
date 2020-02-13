@@ -38,6 +38,9 @@ for opt, arg in opts:
     elif opt in ('-p','--prefix'):
         name = arg
 
+if not os.path.exists(data_dir):
+    os.makedirs(dir_out)
+
 print('\nGenerating kmers.')
 
 ids_fn = os.path.join(data_dir,name + '_' + str(k) + '_ids.pkl')
