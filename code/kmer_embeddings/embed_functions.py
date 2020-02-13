@@ -8,6 +8,7 @@ import gzip
 import csv
 import six.moves.cPickle
 from smart_open import smart_open
+import numpy as np
 
 def open_file_method(path):
     ext = splitext(path)[1]
