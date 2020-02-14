@@ -80,7 +80,7 @@ def extract_taxonomy(path):
 
 def read2vec(path,model,ids,k=None,nts='ACGT',v=2500):
 
-    read_embeddings = np.empty((len(ids),model.layer1_size),dtype='float64')
+    read_embeddings = np.empty((len(ids),model.trainables.layer1_size),dtype='float64')
     failures = {}
     file_open = open_file_method(path)
     file = file_open(path)
@@ -127,7 +127,7 @@ def doc2vec(path,model,ids,kmer_freq=False,k=None,nts='ACGT',v=100):
         kmer_i = {''.join(kmer):i for i,kmer in enumerate(product(nts, repeat=k))}
         kmer_f = np.zeros((len(ids), len(kmer_i)))
 
-    read_embeddings = np.empty((len(ids),model.layer1_size),dtype='float64')
+    read_embeddings = np.empty((len(ids),model.trainables.layer1_size),dtype='float64')
     failures = {}
     file_open = open_file_method(path)
     file = file_open(path)
