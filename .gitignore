@@ -1,6 +1,7 @@
 #files
 *.ipynb
 *.pyc
+*.nfs*
 
 #folders
 __pycache__
