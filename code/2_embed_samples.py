@@ -45,7 +45,7 @@ for opt, arg in opts:
         a = float(arg)
     elif opt in ('-v','--verbose'):
         v = int(arg)
-if path_model != 0:
+if path_model == 0:
     path_model = [f for f in glob(work_dir + '/*') if 'model.pkl' in f]
     if len(path_model) == 1:
         path_model = path_model[0]
