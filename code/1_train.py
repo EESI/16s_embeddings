@@ -8,6 +8,7 @@ from shutil import copyfile
 import getopt
 from glob import glob
 
+import random
 import logging
 import gensim
 from gensim.models import Word2Vec
@@ -15,7 +16,7 @@ from gensim.models.word2vec import LineSentence
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-err = '%s\n-k <k-mer size>\n-d <dim of neural net hidden layer>\n-s <window size>\n-n <number of negative samples>\n-f <k-mer downsampling frequnecy>\n-m <threshold to omit low frequency words>\n-w <path to working director forinput and output files>\n-p <prefix for input and output files>\n-c <number of cores>\n-r <seed>' % (sys.argv[0])
+err = '%s\n-k <k-mer size>\n-d <dim of neural net hidden layer>\n-s <window size>\n-n <number of negative samples>\n-f <k-mer downsampling frequency>\n-m <threshold to omit low frequency words>\n-w <path to working director for input and output files>\n-p <prefix for input and output files>\n-c <number of cores>\n-r <seed>' % (sys.argv[0])
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], 'hk:d:s:n:f:m:e:w:p:c:r:',
@@ -24,6 +25,7 @@ except getopt.GetoptError:
     print(err)
     sys.exit()
 
+seed = random.randint(1,9999999)
 d = 64
 w = 50
 neg_samps = 10
@@ -32,7 +34,7 @@ n_min = 100
 epochs = 3
 n_cores = 1
 k = 0
-
+work_dir = 0
 for opt, arg in opts:
     if opt in ('-h','--help'):
         print(err)
@@ -53,21 +55,25 @@ for opt, arg in opts:
         prefix = arg
     elif opt in ('-w','--wdir'):
         work_dir = arg
-        kmers_dir = [f for f in glob(work_dir + '/*') if 'kmers.csv.gz' in f and prefix in f]
-        if len(kmers_dir) > 1:
-            print('More than one kmer file inr working director with prefix')
-            sys.exit()
-        else:
-            kmers_dir = kmers_dir[0]
-        try:
-            k = int(kmers_dir.split('_')[-2])
-            print('k=%s extracted from kmer file filename' % (k))
-        except:
-            continue
     elif opt in ('-c','--ncores'):
         n_cores = int(arg)
     elif opt in ('-r','--seed'):
         seed = int(arg)
+
+if work_dir != 0:
+    kmers_path = [f for f in glob(work_dir + '/*kmers.csv.gz')]
+    if len(kmers_path) > 1:
+        print('More than one kmer file in working director with prefix')
+        sys.exit()
+    else:
+        kmers_path = kmers_path[0]
+    try:
+        k = int(kmers_path.split('_')[-2])
+        print('k=%s extracted from kmer filename' % (k))
+        prefix = os.path.basename('_'.join(kmers_path.split('_')[:-2]))
+        print('Prefix set as %s from kmer filename' % (prefix))
+    except:
+        pass
 
 if k == 0:
     print('k not specified in kmer file filename via -i or via -k')
@@ -84,7 +90,7 @@ model_path = os.path.join(work_dir,model_fn)
 
 if not os.path.exists(model_path):
 
-    kmers_init = LineSentence(kmers_dir,max_sentence_length=100000)
+    kmers_init = LineSentence(kmers_path,max_sentence_length=100000)
 
     model = Word2Vec(kmers_init,sg=1,size=d,window=w,min_count=n_min,negative=neg_samps,
             sample=samp_freq,iter=epochs,workers=n_cores,seed=seed)

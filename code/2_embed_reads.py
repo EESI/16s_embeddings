@@ -12,10 +12,10 @@ import six.moves.cPickle
 import r2v_functions as r2v
 
 
-err = '%s\n-p <prefix of working files>\n-m <path of gensim model>\n-q <path to k-mers file to be embedded>\n-w <path of working directory>\n-k <k-mer length>\n-a <amount of k-mer downweighting>\n-v <number of lines to process before printing>' % (sys.argv[0])
+err = '%s\n-p <prefix of working files>\n-m <path of gensim model>\n-q <path to k-mers file to be embedded>\n-w <path of working directory>\n-k <k-mer length>\n-a <amount of k-mer downweighting>\n-n <logical whether to normalize by read>\n-v <number of lines to process before printing>' % (sys.argv[0])
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:],'hp:m:q:w:k:a:v:',['help','prefix','modpath','qpath','wdir','k','a','verbose'])
+    opts, args = getopt.getopt(sys.argv[1:],'hp:m:q:w:k:a:v:n:',['help','prefix','modpath','qpath','wdir','k','a','verbose','nr'])
 except getopt.GetoptError:
     print(err)
     sys.exit()
@@ -43,6 +43,16 @@ for opt, arg in opts:
         k = int(arg)
     elif opt in ('-v','--verbose'):
         v = int(arg)
+    elif opt in ('-n','--normread'):
+        if arg == '1' or arg == '0':
+            nr = bool(int(arg))
+        elif arg == 'True':
+            nr = True
+        elif arg == 'False':
+            nr = False
+        else:
+            print('-n must be 0, 1, False, or True')
+            sys.exit()
 if path_model == 0:
     path_model = [f for f in glob(work_dir + '/*') if 'model.pkl' in f]
     if len(path_model) == 1:
@@ -75,4 +85,5 @@ total_kmers = r2v.calc_total_kmers(path_reads,path_model,k,verbose=True,v=v)
 print('Dump total kmers to %s' % (path_totalkmers))
 six.moves.cPickle.dump(total_kmers,open(path_totalkmers,'wb'),protocol=4)
 
-r2v.embed_reads(path_reads,path_totalkmers,path_model,work_dir,k=k,a=a,verbose=True,v=v)
+r2v.embed_reads(path_reads,path_totalkmers,path_model,work_dir,
+        normread=nr,k=k,a=a,verbose=True,v=v)
