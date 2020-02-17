@@ -126,4 +126,4 @@ exsamp\_remb\_merged.csv.gz
 ## Datasets
 
 Complete datasets mentioned here and used in the aforementioned 
-manuscript can be found here: .
+manuscript can be found here: [gitlab.com/sw1/embeddings\_data](https://gitlab.com/sw1/embeddings_data).
