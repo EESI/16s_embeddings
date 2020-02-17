@@ -7,13 +7,15 @@
 __pycache__
 */__pycache__/*
 code/__pycache__/
-models/
-data/testing/
+models/*
+models
+data/*
+data
 
 #large files
 *.pkl
 *.pkl*
 *.fasta
-*.fasta*
+#*.fasta*
 *.csv
 *.csv*

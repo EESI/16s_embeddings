@@ -24,7 +24,7 @@ Computational Biology. 15(2). doi: 10.1371/journal.pcbi.1006721](https://doi.org
 We first need to train our k-mer embeddings. We need to use a set of
 reference sequences to train our k-mer embeddings. We used GreenGenes 16-5
 in our manuscript. We will use a small set of kegg reference sequences 
-here.
+here (/examples/kegg\subset.fasta.gz).
 
 We need to specify the k-mer length *k*, the path of the reference 
 sequences in fasta format, the output directory that will act as the location
@@ -52,16 +52,17 @@ will use to embed our reads and samples.
 # Read Embeddings
 
 For our read embedding, we will use a subset of reads from the Human
-Microbiome Project. This will embed each individual read into its own
-numeric vector. Similar to before, we only need to pass a couple arguments,
-the location of the working directory that contains the model we just 
-trained, a prefix, and the HMP sequences. Because we subsetted the query
-sequences to so few, the total count for many of the k-mers will be 0. The
-approach requires us to normalize each embedding by the total number of
-reads. As we iterate through kmers, we divide the embedding by the total
-number of the given kmer, which will be 0 in this case. Thus, we will
-turn off the normalization for now. In a realistic example, the kmer count
-will not be 0.
+Microbiome Project (/examples/hmp\_subset.fasta.gz). This will embed each 
+individual read into its own numeric vector. Similar to before, 
+we only need to pass a couple arguments, the location of the working 
+directory that contains the model we just trained, a prefix, and the HMP 
+sequences. Because we subsetted the query sequences to so few, the total 
+count for many of the k-mers will be 0. The approach requires us to 
+normalize each embedding by the total number of reads. As we iterate 
+through kmers, we divide the embedding by the total number of the given 
+kmer, which will be 0 in this case. Thus, we will turn off the 
+normalization for now. In a realistic example, the kmer count will not be 
+0.
 
 ```bash
 ./2_embed_reads.py -n 0 -w testing/ -q examples/hmp_subset.fasta.gz -p exread
@@ -70,19 +71,19 @@ will not be 0.
 # Sample Embeddings
 
 For sample embeddings, we start with individual fasta files for each
-sample. Many software packages exist that can split a single fasta file in
-this way. One example is QIIME. Once we have these fasta files, we can 
-calculate the total kmers for each sample and obtain their embeddings.
-Similar to before, we need to specify the working directory that contains 
-the trained model, a prefix, and the location of the sample fasta files.
-For our sample fasta files, we are using subsets of reads from 10 samples
-from the American Gut data set.
+sample (/examples/samples/). Many software packages exist that can split a 
+single fasta file in this way. One example is QIIME. Once we have these 
+fasta files, we can calculate the total kmers for each sample and obtain 
+their embeddings. Similar to before, we need to specify the working 
+directory that contains the trained model, a prefix, and the location of 
+the sample fasta files. For our sample fasta files, we are using subsets 
+of reads from 10 samples from the American Gut data set.
 
 ```bash
 ./2_embed_samples.py -p exsamp -w testing/ -s samples/
 ```
 
-The result will be a pkl file containing the total kmers across all
+The result will be a .pkl file containing the total kmers across all
 samples and 10 individual .csv.gz files with the raw kmer embeddings.
 The denoising has yet to occur. Next, merge, row-wise, all of the csv.gz
 files. We specify the working directory and the prefix.
@@ -106,3 +107,8 @@ And lastly, we'll run a script to perform the denoising.
 
 The final file are the denoised sample embeddings: 
 exsamp\_remb\_merged.csv.gz
+
+## Datasets
+
+Complete datasets mentioned here and used in the aforementioned 
+manuscript can be found here: .
