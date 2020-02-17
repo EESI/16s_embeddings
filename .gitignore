@@ -11,8 +11,10 @@ code/__pycache__/
 #models
 data/testing/*
 data/testing
-#data/*
-#data
+data/*
+data
+data/training/*
+data/training
 #tables/*
 #tables
 
