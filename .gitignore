@@ -11,11 +11,13 @@ models/*
 models
 data/*
 data
+#tables/*
+#tables
 
 #large files
-*.pkl
-*.pkl*
-*.fasta
+#*.pkl
+#*.pkl*
+#*.fasta
 #*.fasta*
-*.csv
-*.csv*
+#*.csv
+#*.csv*
