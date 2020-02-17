@@ -9,8 +9,10 @@ __pycache__
 code/__pycache__/
 #models/*
 #models
-data/*
-data
+data/testing/*
+data/testing
+#data/*
+#data
 #tables/*
 #tables
 
