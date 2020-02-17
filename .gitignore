@@ -7,8 +7,8 @@
 __pycache__
 */__pycache__/*
 code/__pycache__/
-models/*
-models
+#models/*
+#models
 data/*
 data
 #tables/*
