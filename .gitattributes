@@ -1,8 +1,4 @@
 data/train/ag.fasta.gz filter=lfs diff=lfs merge=lfs -text
-data/train/gg_13_5.fasta.gz filter=lfs diff=lfs merge=lfs -text
-data/train/hmp.fasta.gz filter=lfs diff=lfs merge=lfs -text
-data/train/kegg.fasta.gz filter=lfs diff=lfs merge=lfs -text
-data/train/oral.fasta.gz filter=lfs diff=lfs merge=lfs -text
 models/gg_10_64_5_50_10_0.0001_100_model* filter=lfs diff=lfs merge=lfs -text
 models/gg_6_64_5_50_10_0.0001_100_model* filter=lfs diff=lfs merge=lfs -text
 tables/* filter=lfs diff=lfs merge=lfs -text
