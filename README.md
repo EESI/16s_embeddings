@@ -126,4 +126,9 @@ exsamp\_remb\_merged.csv.gz
 ## Datasets
 
 Complete datasets mentioned here and used in the aforementioned 
-manuscript can be found here: [gitlab.com/sw1/embeddings\_data](https://gitlab.com/sw1/embeddings_data).
+manuscript can be found at [gitlab.com/sw1/embeddings\_data](https://gitlab.com/sw1/embeddings_data).
+
+## Code From Manuscript
+
+All code to run the analyses for the manuscript listed above can be 
+found at [github.com/EESI/microbiome\_embeddings](https://github.com/EESI/microbiome_embeddings).
