@@ -1,0 +1,5 @@
+data/train/ag.fasta.gz filter=lfs diff=lfs merge=lfs -text
+data/train/gg_13_5.fasta.gz filter=lfs diff=lfs merge=lfs -text
+data/train/hmp.fasta.gz filter=lfs diff=lfs merge=lfs -text
+data/train/kegg.fasta.gz filter=lfs diff=lfs merge=lfs -text
+data/train/oral.fasta.gz filter=lfs diff=lfs merge=lfs -text
